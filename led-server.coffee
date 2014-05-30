@@ -25,7 +25,7 @@ app.get '/toggle/18', ->
   gpio18.set(1 - gpio.state)
 
 
-gpio18.on("change", (val) ->
+gpio18.on "change", (val) ->
   # value will report either 1 or 0 (number) when the value changes
    console.log(val)
    gpio18.state = val
