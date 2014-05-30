@@ -1,0 +1,10 @@
+{
+  "name": "pi-time",
+  "description": "raspberry pi time",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "coffee-script": "latest",
+    "express": "3.x"
+  }
+}
