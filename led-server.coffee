@@ -3,7 +3,6 @@ gpio = require 'gpio'
 app = express()
 gpio18 = gpio.export 18
 
-gpio.state = 0
 
 app.configure ->
   app.set 'port', process.env.PORT or 4000
