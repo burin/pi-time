@@ -17,12 +17,22 @@ app.configure ->
 
 app.get '/on/:id', (req, res) ->
   io[req.params.id].set()
-  res.send("#{req.params.id} on<br> <a href=\"/off/#{req.params.id}\">turn off</a>")
+
+  html = """
+    #{req.params.id} on<br>
+    <a href=\"/off/#{req.params.id}\">turn off</a>
+  """
+  res.send html
 
 app.get '/off/:id', (req, res) ->
   io[req.params.id].reset()
   clearInterval beatsInterval
-  res.send("#{req.params.id} off<br> <a href=\"/on/#{req.params.id}\">turn on</a>")
+
+  html = """
+    #{req.params.id} off<br>
+    <a href=\"/off/#{req.params.id}\">turn on</a>
+  """
+  res.send html
 
 app.get '/beats/:id', (req, res) ->
   beatsInterval = setInterval ->
