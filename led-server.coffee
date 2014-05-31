@@ -15,38 +15,32 @@ app = express()
 app.configure ->
   app.set 'port', process.env.PORT or 4000
 
-app.get '/on/18', (req, res) ->
-  io[18].set()
+app.get '/on/:id', (req, res) ->
+  io[req.params.id].set()
   res.send('on')
 
-app.get '/off/18', (req, res) ->
-  io[18].reset()
+app.get '/off/:id', (req, res) ->
+  io[req.params.id].reset()
   clearInterval beatsInterval
   res.send('off')
 
-app.get '/beats/18', (req, res) ->
+app.get '/beats/:id', (req, res) ->
   beatsInterval = setInterval ->
-    io[18].set()
+    io[req.params.id].set()
     setTimeout ->
-      io[18].reset()
+      io[req.params.id].reset()
     , 200
   , 1000
   res.send('beats started')
 
-app.get '/toggle/18', (req, res) ->
-  if io[18].state == 0
-    io[18].set()
+app.get '/toggle/:id', (req, res) ->
+  if io[req.params.id].value == 0
+    io[req.params.id].set()
   else
-    io[18].reset()
-  res.send("toggled to #{io[18].state == 0 ? 'on' : 'off'}")
+    io[req.params.id].reset()
+  res.send("toggled to #{io[req.params.id].value}")
 
-io[18].on 'change', (val) ->
-  # value will report either 1 or 0 (number) when the value changes
-   io[18].state = val
-
-io[22].on 'change', (val) ->
-  console.log "22 changed to #{val}"
-
+# tie the button to the led
 io[22].on 'change', (val) ->
   io[23].set(val)
 
