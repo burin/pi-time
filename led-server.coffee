@@ -15,11 +15,6 @@ beatsInterval = null
 app.configure ->
   app.set 'port', process.env.PORT or 4000
 
-
-app.get '/hello.txt', (req, res) ->
-  res.send('Hello World')
-
-
 app.get '/on/18', (req, res) ->
   io[18].set()
   res.send('on')
