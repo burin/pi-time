@@ -17,12 +17,12 @@ app.configure ->
 
 app.get '/on/:id', (req, res) ->
   io[req.params.id].set()
-  res.send('on')
+  res.send("#{req.params.id} on<br> <a href=\"/off/#{req.params.id}\">turn off</a>")
 
 app.get '/off/:id', (req, res) ->
   io[req.params.id].reset()
   clearInterval beatsInterval
-  res.send('off')
+  res.send("#{req.params.id} off<br> <a href=\"/on/#{req.params.id}\">turn on</a>")
 
 app.get '/beats/:id', (req, res) ->
   beatsInterval = setInterval ->
@@ -35,10 +35,12 @@ app.get '/beats/:id', (req, res) ->
 
 app.get '/toggle/:id', (req, res) ->
   if io[req.params.id].value == 0
-    io[req.params.id].set()
+    io[req.params.id].set ->
+      res.send("toggled to #{io[req.params.id].value}<br> <a href=\"/toggle/#{req.params.id}\">toggle</a>")
   else
-    io[req.params.id].reset()
-  res.send("toggled to #{io[req.params.id].value}")
+    io[req.params.id].set 0, ->
+      res.send("toggled to #{io[req.params.id].value}<br> <a href=\"/toggle/#{req.params.id}\">toggle</a>")
+
 
 # tie the button to the led
 io[22].on 'change', (val) ->
