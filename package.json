@@ -6,6 +6,7 @@
   "dependencies": {
     "coffee-script": "latest",
     "express": "3.x",
-    "gpio": "*"
+    "gpio": "*",
+    "forever": "*"
   }
 }
