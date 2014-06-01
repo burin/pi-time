@@ -158,3 +158,15 @@ node_modules/forever/bin/forever start -c node_modules/coffee-script/bin/coffee 
  
 
 ```
+
+
+
+##### Restarting forever with cron on reboot
+
+https://www.digitalocean.com/community/articles/how-to-host-multiple-node-js-applications-on-a-single-vps-with-nginx-forever-and-crontab
+
+`crontab -e`
+
+Add this to the end of the file:
+
+`@reboot /home/pi/deploy/pi-time/starter.sh`
